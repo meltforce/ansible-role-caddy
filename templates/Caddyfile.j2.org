@@ -17,13 +17,6 @@
 # {{ endpoint.friendly_name }}
 {% if endpoint.tls_insecure %}
 {{ endpoint.fqdn }} {
-    {% if endpoint.basic_auth is defined %}
-    basicauth {
-        {% for user in endpoint.basic_auth.users %}
-        {{ user.username }} {{ user.password_hash }}
-        {% endfor %}
-    }
-    {% endif %}
     reverse_proxy {{ endpoint.upstream }} {
         transport http {
             tls_insecure_skip_verify
@@ -33,13 +26,6 @@
 }
 {% else %}
 {{ endpoint.fqdn }} {
-    {% if endpoint.basic_auth is defined %}
-    basicauth {
-        {% for user in endpoint.basic_auth.users %}
-        {{ user.username }} {{ user.password_hash }}
-        {% endfor %}
-    }
-    {% endif %}
     reverse_proxy {{ endpoint.upstream }}
     import {{ endpoint.tls_provider }}
 }
