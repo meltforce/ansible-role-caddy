@@ -1,4 +1,15 @@
 ## {{ ansible_managed }}
+
+# open admin port to all interfaces
+{
+    admin :2019 {
+
+    }
+    servers {
+        metrics
+    }
+}
+
 {% if caddy_tls_providers is defined %}
 {% for item in caddy_tls_providers %}
 ({{ item.provider }}) {
